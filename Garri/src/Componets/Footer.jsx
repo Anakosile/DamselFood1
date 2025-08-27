@@ -5,7 +5,7 @@ const Footer = () => {
                 {/* 
             <!-- Brand & Tagline --> */}
                 <div>
-                    <h2 class="text-2xl font-bold text-white">1Delivery</h2>
+                    <h2 class="text-2xl font-bold text-white">DamselFood</h2>
                     <p class="mt-2 text-sm">Fast, fresh, and right at your doorstep.</p>
                 </div>
 
@@ -13,9 +13,10 @@ const Footer = () => {
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-2">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-blue-400 transition">Restaurant</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Marketplace</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Sign In</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Service</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">About</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Contact</a></li>
                     </ul>
                 </div>
 
@@ -36,7 +37,7 @@ const Footer = () => {
 
             {/* <!-- Bottom Bar --> */}
             <div class="mt-10 border-t border-gray-700 pt-4 text-center text-sm text-gray-500">
-                &copy; 2025 1Delivery. All rights reserved.
+                &copy; 2025 DamselFood. All rights reserved.
             </div>
         </footer>
     );
