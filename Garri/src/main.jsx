@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LandingPage from './Landing'
-import Navbar from './nabar'
+import Navbar from './componets/Navbar'
+import Footer from './componets/Footer'
 
 export default function App () {
 
@@ -19,6 +20,11 @@ export default function App () {
         {
           path: 'navbar',
           element: <Navbar/>
+        },
+
+        {
+          path: 'Footer',
+          element: <Footer/>
         }
 
       ])
