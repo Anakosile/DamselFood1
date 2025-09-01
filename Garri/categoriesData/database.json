@@ -1,0 +1,33 @@
+{
+    "data": [
+        {"id": 1, "title": "Welcome to my blog", "body": "This is my body"},
+        {"id": 2, "title": "Welcome to my website", "body": "This is my second body"}
+    ],
+    "categories":[
+  {
+    "id": 1,
+    "title": "Ijebu Garri",
+    "desc": "Finely ground with a slightly sour taste, perfect for soaking.",
+    "price": "₦2,500",
+    "img": "/Assect/ijebu.jpeg",
+    "badge": "Popular",
+    "badgeClass": "bg-green-600"
+  },
+  {
+    "id": 2,
+    "title": "Yellow Garri",
+    "desc": "Rich in beta-carotene with a naturally sweet taste.",
+    "price": "₦2,800",
+    "img": "/Assect/yellow.jpeg"
+  },
+  {
+    "id": 3,
+    "title": "White Garri",
+    "desc": "Mild flavor with a smooth texture, great for all recipes.",
+    "price": "₦2,300",
+    "img": "/Assect/white.jpeg",
+    "badge": "New",
+    "badgeClass": "bg-blue-600"
+  }
+]
+}
