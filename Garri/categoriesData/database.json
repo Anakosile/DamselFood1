@@ -1,33 +1,151 @@
 {
-    "data": [
-        {"id": 1, "title": "Welcome to my blog", "body": "This is my body"},
-        {"id": 2, "title": "Welcome to my website", "body": "This is my second body"}
-    ],
-    "categories":[
-  {
-    "id": 1,
-    "title": "Ijebu Garri",
-    "desc": "Finely ground with a slightly sour taste, perfect for soaking.",
-    "price": "₦2,500",
-    "img": "/Assect/ijebu.jpeg",
-    "badge": "Popular",
-    "badgeClass": "bg-green-600"
-  },
-  {
-    "id": 2,
-    "title": "Yellow Garri",
-    "desc": "Rich in beta-carotene with a naturally sweet taste.",
-    "price": "₦2,800",
-    "img": "/Assect/yellow.jpeg"
-  },
-  {
-    "id": 3,
-    "title": "White Garri",
-    "desc": "Mild flavor with a smooth texture, great for all recipes.",
-    "price": "₦2,300",
-    "img": "/Assect/white.jpeg",
-    "badge": "New",
-    "badgeClass": "bg-blue-600"
-  }
-]
+  "products": [
+    {
+      "id": 1,
+      "name": "Ijebu Garri",
+      "description": "Fine-grained sour garri, perfect for soakings and eba.",
+      "price": 2500,
+      "image": "/Assect/ijebu.jpeg",
+      "badge": "Popular",
+      "badgeClass": "bg-green-600"
+    },
+    {
+      "id": 2,
+      "name": "Yellow Garri",
+      "description": "Fried with palm oil, nutritious and tasty.",
+      "price": 2200,
+      "image": "/Assect/yellow.jpeg"
+    },
+    {
+      "id": 3,
+      "name": "White Garri",
+      "description": "Smooth, less sour garri, great for everyday meals.",
+      "price": 2000,
+      "image": "/Assect/white.jpeg",
+      "badge": "New",
+      "badgeClass": "bg-blue-600"
+    },
+    {
+      "id": 4,
+      "name": "Yam Flour",
+      "description": "Nutritious and hearty flour with a distinct earthy flavor.",
+      "price": 10000,
+      "image": "/Assect/yam_flour.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Cassava Flour",
+      "description": "Naturally gluten-free with a soft, wholesome touch.",
+      "price": 8000,
+      "image": "/Assect/casava_flour.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Cassava",
+      "description": "A starchy root crop known for its versatility and natural energy.",
+      "price": 7000,
+      "image": "/Assect/casava.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Corn",
+      "description": "A versatile cereal grain rich in energy, widely used for food, feed, and industrial products.",
+      "price": 5000,
+      "image": "/Assect/corn.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Cocoa Beans",
+      "description": "The dried, fermented seeds of the cacao tree, valued as the key ingredient in chocolate and cocoa products.",
+      "price": 7000,
+      "image": "/Assect/cocoa2.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Palm Oil",
+      "description": "A natural, versatile vegetable oil extracted from palm fruit, widely used in cooking and industry.",
+      "price": 9000,
+      "image": "/Assect/palm.jpg"
+    }
+  ],
+
+  "categories": [
+    {
+      "id": 1,
+      "title": "Ijebu Garri",
+      "desc": "Finely ground with a slightly sour taste, perfect for soaking.",
+      "price": "₦2,500",
+      "img": "/Assect/ijebu.jpeg",
+      "badge": "Popular",
+      "badgeClass": "bg-green-600"
+    },
+    {
+      "id": 2,
+      "title": "Yellow Garri",
+      "desc": "Rich in beta-carotene with a naturally sweet taste.",
+      "price": "₦2,200",
+      "img": "/Assect/yellow.jpeg"
+    },
+    {
+      "id": 3,
+      "title": "White Garri",
+      "desc": "Mild flavor with a smooth texture, great for all recipes.",
+      "price": "₦2,000",
+      "img": "/Assect/white.jpeg",
+      "badge": "New",
+      "badgeClass": "bg-blue-600"
+    },
+    {
+      "id": 4,
+      "title": "Yam Flour",
+      "desc": "Nutritious and hearty flour with a distinct earthy flavor.",
+      "price": "₦10,000",
+      "img": "/Assect/yam_flour.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Cassava Flour",
+      "desc": "Naturally gluten-free with a soft, wholesome touch.",
+      "price": "₦8,000",
+      "img": "/Assect/casava_flour.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Cassava",
+      "desc": "A starchy root crop known for its versatility and natural energy.",
+      "price": "₦7,000",
+      "img": "/Assect/casava.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Corn",
+      "desc": "A versatile cereal grain rich in energy, widely used for food, feed, and industrial products.",
+      "price": "₦5,000",
+      "img": "/Assect/corn.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Cocoa Beans",
+      "desc": "The dried, fermented seeds of the cacao tree, valued as the key ingredient in chocolate and cocoa products.",
+      "price": "₦7,000",
+      "img": "/Assect/cocoa2.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Palm Oil",
+      "desc": "A natural, versatile vegetable oil extracted from palm fruit, widely used in cooking and industry.",
+      "price": "₦9,000",
+      "img": "/Assect/palm.jpg"
+    }
+  ],
+
+  "menu": [
+    { "id": 1, "name": "Yam flour", "images": "/Assect/elubo.jpeg" },
+    { "id": 2, "name": "Cocoa Beans", "images": "/Assect/cocoa1.jpg" },
+    { "id": 3, "name": "Garri", "images": "/Assect/yellow.jpeg" },
+    { "id": 4, "name": "Cassava flour", "images": "/Assect/industrial.jpeg" },
+    { "id": 5, "name": "Cassava", "images": "/Assect/rawCassava.jpeg" },
+    { "id": 6, "name": "Palm oil", "images": "/Assect/palm_oil.jpg" },
+    { "id": 7, "name": "Corn", "images": "/Assect/maize.jpg" }
+  ]
 }

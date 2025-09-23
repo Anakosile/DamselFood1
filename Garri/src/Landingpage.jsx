@@ -1,13 +1,18 @@
 import { Search } from "lucide-react"; // icon
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, Link, ScrollRestoration } from "react-router-dom";
+import { useState } from "react";
 
 function LandingPage () {
+
+    const [query, setQuery] = useState("");
+
   return (
     <div className="space-y-12">
     <nav className="flex items-center justify-between py-3 max-w-7xl mx-auto px-5 lg:px-1 shadow-sm bg-white sticky top-0 z-10">
         {/* Logo */}
-        <h1 className="text-xl font-bold text-blue-600">DamselFood</h1>
-
+        <Link to={'/'}>
+            <h1 className="text-xl font-bold text-blue-600">DamselFood</h1>
+        </Link>
         {/* Search (responsive) */}
         <div className="flex items-center">
             {/* Mobile: Only icon */}
@@ -22,12 +27,14 @@ function LandingPage () {
                 type="text"
                 placeholder="Search for product..."
                 className="bg-transparent outline-none focus:outline-none text-sm"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
             />
             </div>
         </div>
         </nav>  
         <ScrollRestoration getKey={(location) => location.pathname} />
-        <Outlet />
+        <Outlet context={{ query }} />
         <Footer />
     </div>
   );
@@ -38,7 +45,7 @@ export default LandingPage;
 const Footer =() => {
     return(
         <footer className="bg-gray-800 px-4 md:px-16 lg:px-28 py-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 max-w-7xl mx-auto md:grid-cols-3 gap-8">
                 <div>
                     <h2 className="text-lg font-bold mb-4 text-white">About Us</h2>
 
@@ -46,7 +53,7 @@ const Footer =() => {
                         We are a team dedicated to providing the best products and services to our customers.
                     </p>
                 </div>
-
+ 
                 <div>
                     <h2 className="text-lg font-bold mb-4 text-white">Quick Links</h2>
 
@@ -70,7 +77,7 @@ const Footer =() => {
                 </div>
             </div>
 
-            <div className="border-t border-gray-600 pt-6 text-gray-300 text-center mt-6">
+            <div className="border-t max-w-7xl mx-auto border-gray-600 pt-6 text-gray-300 text-center mt-6">
                 <p>©2024 Code With Codeweb. All Rights Reserved.</p>
             </div>
         </footer>

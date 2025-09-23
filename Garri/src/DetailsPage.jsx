@@ -1,33 +1,6 @@
-import ijebu from "./assets/ijebu.jpeg";
-import white from "./assets/white.jpeg";
-import yellow from "./assets/yellow.jpeg";
 import { motion } from "framer-motion";
-import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
-
-const products = [
-  {
-    id: 1,
-    name: "Ijebu Garri",
-    description: "Fine-grained sour garri, perfect for soakings and eba.",
-    price: 2500,
-    image: ijebu,
-  },
-  {
-    id: 3,
-    name: "White Garri",
-    description: "Smooth, less sour garri, great for everyday meals.",
-    price: 2000,
-    image: white,
-  },
-  {
-    id: 2,
-    name: "Yellow Garri",
-    description: "Fried with palm oil, nutritious and tasty.",
-    price: 2200,
-    image: yellow,
-  },
-];
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const UNIT_PRICES = {
   bag: 8000,
@@ -35,15 +8,38 @@ const UNIT_PRICES = {
 };
 
 export default function Details() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
+  const [unit, setUnit] = useState("");
+  const [error, setError] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch("http://localhost:8000/products");
+        if (!res.ok) throw new Error("Failed to fetch products");
+        const data = await res.json();
+        setProducts(data);
+        setAllProducts(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProducts();
+  }, []);
+
   const { id } = useParams();
+  if (loading) return <p className="text-lg font-semibold">loading.....</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+
   const product = products.find(({ id: item }) => item === parseInt(id));
   const similarProducts = products.filter(
     ({ id: item }) => item !== parseInt(id)
   );
-
-  const [quantity, setQuantity] = useState(1);
-  const [unit, setUnit] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
 
   if (!product)
     return <p className="text-center mt-10 text-2xl">Product not found</p>;
@@ -61,33 +57,28 @@ export default function Details() {
         setQuantity={setQuantity}
         unitPrice={unitPrice}
         totalPrice={totalPrice}
-        setShowPopup={setShowPopup}
       />
-      <SimilarProducts similarProducts={similarProducts} />
+      <SimilarProducts  allProducts={allProducts} currentProductId={product.id} />
     </div>
   );
 }
 
 const BuySection = ({
-  product: { name, description, image },
+  product: { id, name, description, image },
   unit,
   setUnit,
   quantity,
   setQuantity,
   unitPrice,
   totalPrice,
-  setShowPopup,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-gray-200">
-
-      <div
-        className="max-w-6xl mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
-      >
+      <div className="max-w-6xl mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {/* Left: Image */}
-        <div
-          className="flex justify-center items-center"
-         >
+        <div className="flex justify-center items-center">
           <img
             src={image}
             alt={name}
@@ -96,12 +87,7 @@ const BuySection = ({
         </div>
 
         {/* Right: Details */}
-        <div
-          className="flex flex-col justify-center p-4 rounded-xl space-y-4"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-        >
+        <div className="flex flex-col justify-center p-4 rounded-xl space-y-4">
           <h1 className="text-lg md:text-2xl font-bold">
             Product name: {name}
           </h1>
@@ -139,14 +125,10 @@ const BuySection = ({
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-gray-700">Origin</td>
-                  <td className="p-3 text-gray-600">
-                    Ijebu, Ogun State, Nigeria
-                  </td>
+                  <td className="p-3 text-gray-600">Ijebu, Ogun State, Nigeria</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-medium text-gray-700">
-                    Shelf Life
-                  </td>
+                  <td className="p-3 font-medium text-gray-700">Shelf Life</td>
                   <td className="p-3 text-gray-600">6–12 months</td>
                 </tr>
                 <tr>
@@ -230,7 +212,7 @@ const BuySection = ({
 
           {/* Buy Now Button */}
           <motion.button
-            onClick={() => setShowPopup(true)}
+            onClick={() => navigate(`/details/${id}`)}
             disabled={!unit}
             whileTap={{ scale: 0.95 }}
             whileHover={{ scale: unit ? 1.05 : 1 }}
@@ -248,8 +230,7 @@ const BuySection = ({
   );
 };
 
-const SimilarProducts = ({ similarProducts }) => {
-  // Framer Motion variants for nice staggered reveal
+const SimilarProducts = ({ allProducts, currentProductId }) => {
   const container = {
     hidden: { opacity: 0, y: 20 },
     show: {
@@ -258,49 +239,56 @@ const SimilarProducts = ({ similarProducts }) => {
       transition: { staggerChildren: 0.12, delayChildren: 0.1 },
     },
   };
+
   const item = {
     hidden: { opacity: 0, y: 16 },
     show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
   };
 
+  // Always filter only the *current* product
+  const displayedProducts = allProducts.filter(
+    (product) => product.id !== currentProductId
+  );
+
   return (
-    <div className="w-full mt-10">
-      <h1 className="text-2xl font-bold text-center mb-4">Similar Products</h1>
+    <div className=" max-w-7xl mt-10">
+      <h1 className="text-2xl font-bold text-center mb-6">Similar Products</h1>
 
       <motion.div
-        className="flex items-center justify-center flex-col bg-amber-100 md:flex-row rounded-lg gap-6 p-4"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 bg-amber-100 rounded-lg p-6"
         variants={container}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {similarProducts.map(({ id, name, description, price, image }) => (
+        {displayedProducts.map(({ id, name, description, price, image }) => (
           <motion.div
             key={id}
             variants={item}
-            className="bg-white p-4 rounded-xl shadow flex flex-col items-center w-72"
+            className="bg-white p-4 rounded-xl shadow flex flex-col items-center text-center"
           >
             <img
               src={image}
               alt={name}
               className="h-40 w-40 object-cover rounded-full mb-4"
             />
-            <p className="font-bold text-xl mb-2">{name}</p>
-            <p className="text-gray-600 text-base mb-3 text-center">
-              {description}
-            </p>
+            <p className="font-bold text-lg mb-2">{name}</p>
+            <p className="text-gray-600 text-sm mb-3">{description}</p>
             <p className="text-lg font-semibold mb-3">
               ₦{price.toLocaleString()}
             </p>
-           <Link to={`/details/${id}`}>
-            <button className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg text-lg">
-              View
-            </button>
-          </Link>
-
+            <Link to={`/details/${id}`}>
+              <button className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer text-white px-5 py-2 rounded-lg text-sm md:text-base">
+                View
+              </button>
+            </Link>
           </motion.div>
         ))}
       </motion.div>
+      <Link to={'/'}
+        className="mt-6 px-6 py-4 float-right bg-blue-500 text-lg font-semibold rounded-lg inline-block text-white hover:bg-blue-400">
+        Back to home page
+      </Link>
     </div>
   );
 };

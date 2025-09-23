@@ -19,19 +19,18 @@ const HomePage = () => {
 export default HomePage;
 
 const CategoryList = () => {
-  const categories = [
-    {id: 1, name: 'Yam flour', images: '/Assect/elubo.jpeg'},
-    {id: 2, name: 'Cassava chips', images: '/Assect/cheeps.jpeg'},
-    {id: 3, name: 'Garri', images: yellow},
-    {id: 4, name: 'Cassava flour', images: '/Assect/industrial.jpeg'},
-    {id: 5, name: 'Cassava', images: '/Assect/rawCassava.jpeg'}
-  ];
+  const [menu, setMenu] = useState(null)
+  useEffect( () => {
+    fetch("http://localhost:8000/menu")
+    .then( res => res.json() )
+    .then( data => { return setMenu(data) } )
+  }, [] )
 
   return (
     <div className="bg-gray-50  max-w-7xl mx-auto px-5 lg:px-1 py-4">
       <h1 className="text-3xl text-blue-700 font-semibold text-center mb-8 tracking-tight">Explore Our Categories</h1>
       <div className="flex overflow-x-auto no-scrollbar gap-6 w-full justify-center px-4">
-        {categories.map(( {id, name, images} ) => (
+        {menu && menu.map(( {id, name, images} ) => (
           <div key={id} className="flex flex-col items-center min-w-[80px]">
             <div className="w-20 h-20 rounded-full bg-gray-200"><img src={images} alt="" className="w-full h-full rounded-full"/></div>
             <span className="text-sm mt-2">{name}</span>
@@ -80,10 +79,10 @@ const Cat = () => {
             
             return res.json()
         } )
-        .then( data => {
-            setCategories(data)
-            setPending(false)
-            setError(null)
+        .then( data =>  {
+            setCategories(data);
+            setPending(false);
+            setError(null);
         } )
         .catch( e => {
             setError(e.message)
@@ -135,8 +134,9 @@ const Cat = () => {
                   <p className="text-gray-600 mb-4">{desc}</p>
                   <p className="text-lg font-semibold text-orange-600">{price}</p>
                   <Link
-                    to={`details/${id}`}
+                    to={`/details/${id}`}
                     className="absolute px-4 py-2 text-white rounded-lg right-5 bottom-4 active:scale-95 hover:bg-white hover:text-blue-800 hover:outline-1 transition-colors duration-500 bg-blue-600"
+                    onClick={ () => console.log('Navigating to', `/details/${id}`) }
                   >
                     Buy now
                   </Link>
